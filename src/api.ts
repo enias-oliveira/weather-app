@@ -1,4 +1,52 @@
-export const getCapitalsWeather = () => [
+export interface Location {
+  city: string;
+  region: string;
+  country: string;
+  lat: string;
+  long: string;
+  timezone_id: string;
+}
+
+export interface CurrentObservation {
+  wind: Wind;
+  atmosphere: Atmosphere;
+  astronomy: Astronomy;
+  condition: Condition;
+  pubDate: number;
+}
+
+export interface Wind {
+  chill: number;
+  direction: number;
+  speed: number;
+}
+
+export interface Atmosphere {
+  humidity: number;
+  visibility: number;
+  pressure: number;
+  rising: number;
+}
+
+export interface Astronomy {
+  sunrise: string;
+  sunset: string;
+}
+
+export interface Condition {
+  text: string;
+  code: number;
+  temperature: number;
+}
+
+export interface ResponseItem {
+  location: Location;
+  current_observation: CurrentObservation;
+}
+
+export type Response = ResponseItem[];
+
+export const getCapitalsWeather = (): Response => [
   {
     location: {
       city: "Brasília",
