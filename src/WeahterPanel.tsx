@@ -1,16 +1,16 @@
-import React from "react";
-import { ResponseItem } from "./api";
+import React from 'react'
+import { ResponseItem } from './api'
 
 export type WeatherPanelProps = {
-  // TODO: Decouple from API
-  capital?: ResponseItem;
-};
+    // TODO: Decouple from API
+    capital?: ResponseItem
+}
 
 export const WeatherPanel = ({ capital }: WeatherPanelProps) => {
-  return (
-    <div>
-      <span>{capital?.location.city}</span>
-      <span>{capital?.current_observation.condition.temperature}</span>
-    </div>
-  );
-};
+    return capital ? (
+        <div>
+            <span>{capital?.location.city}</span>
+            <span>{capital?.current_observation.condition.temperature}</span>
+        </div>
+    ) : null
+}
