@@ -1,16 +1,22 @@
 import React from 'react'
-import { ResponseItem } from './api'
 
 export type WeatherPanelProps = {
-    // TODO: Decouple from API
-    capital?: ResponseItem
+    location: {
+        city: string
+    }
+    weather: {
+        temperature: number
+    }
 }
 
-export const WeatherPanel = ({ capital }: WeatherPanelProps) => {
-    return capital ? (
+export const WeatherPanel = ({
+    location: { city },
+    weather: { temperature },
+}: WeatherPanelProps) => {
+    return (
         <div>
-            <span>{capital?.location.city}</span>
-            <span>{capital?.current_observation.condition.temperature}</span>
+            <span>{city}</span>
+            <span>{temperature}</span>
         </div>
-    ) : null
+    )
 }
