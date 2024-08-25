@@ -1,25 +1,20 @@
 import React, { FC } from 'react'
-import { ResponseItem } from './api'
+import { Capital, capitals } from './utils'
 
 type CapitalSelectionsProps = {
-    capitals?: ResponseItem[]
-    handleClickOnCapital: (captial: ResponseItem) => () => void
+    handleClickOnCapital: (captial: Capital) => () => void
 }
 
 export const CapitalsList: FC<CapitalSelectionsProps> = ({
-    capitals,
     handleClickOnCapital,
 }) => {
     return (
         <div>
             <h2>Capitais</h2>
             <ul>
-                {capitals?.map((cpt) => (
-                    <li
-                        key={cpt.location.city}
-                        onClick={handleClickOnCapital(cpt)}
-                    >
-                        {cpt.location.city}
+                {capitals.slice(0, 10).map((cpt) => (
+                    <li key={cpt} onClick={handleClickOnCapital(cpt)}>
+                        {cpt}
                     </li>
                 ))}
             </ul>

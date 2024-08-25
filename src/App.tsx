@@ -1,40 +1,21 @@
 import { useState } from 'react'
 import { useApp } from './use-app'
-import type { ResponseItem } from './api'
 import React from 'react'
-import { WeatherPanel } from './WeahterPanel'
 import { CapitalsList } from './CapitalsList'
 import { SearchBar } from './SearchBar'
-import { useEffect } from 'react'
 
 function App() {
-    const { capitalsWeather } = useApp()
-    const [selectedCapital, setSelectedCapital] = useState<ResponseItem>()
-
-    const handleClickCapitalListItem = (cw: ResponseItem) => () =>
-        setSelectedCapital(cw)
-
-    const handleOnSearch = (searchValue: string) => {
-        const searchRegex = new RegExp(searchValue, 'i')
-
-        const searchedCapital = capitalsWeather.find(({ location: { city } }) =>
-            searchRegex.test(city)
-        )
-
-        setSelectedCapital(searchedCapital)
-    }
+    const { selectedCapital, handleClickCapitalListItem, handleOnSearch } =
+        useApp()
 
     return (
         <>
             <h1>Previsão do Tempo</h1>
-            <WeatherPanel capital={selectedCapital} />
+            <h2>{selectedCapital}</h2>
 
             <SearchBar onSearch={handleOnSearch} />
 
-            <CapitalsList
-                capitals={capitalsWeather}
-                handleClickOnCapital={handleClickCapitalListItem}
-            />
+            <CapitalsList handleClickOnCapital={handleClickCapitalListItem} />
         </>
     )
 }
