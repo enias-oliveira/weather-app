@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
-import { useEffect } from 'react'
 import { useState } from 'react'
-import { FaSearch } from 'react-icons/fa'
+import { IoSearchOutline } from 'react-icons/io5'
 
 export const SearchBar: FC<{
     onSearch: (searchValue: string) => void
@@ -14,8 +13,9 @@ export const SearchBar: FC<{
     }
 
     return (
-        <div>
+        <div className="bg-white flex items-center justify-between px-2 py-1 w-full">
             <input
+                className="w-full focus:outline-none"
                 type="text"
                 placeholder="Insira aqui o nome da cidade"
                 value={searchInputText}
@@ -27,7 +27,7 @@ export const SearchBar: FC<{
                 }}
             />
             <button onClick={handleSearch}>
-                <FaSearch />
+                <IoSearchOutline className="text-2xl" />
             </button>
         </div>
     )

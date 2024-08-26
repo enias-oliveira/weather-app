@@ -13,21 +13,23 @@ function App() {
     } = useApp()
 
     return (
-        <div className="h-screen flex justify-center bg-gradient-to-b from-[#FF7F00] to-[#FFBB00]">
+        <div className="h-dvh flex justify-center bg-gradient-to-b from-[#FF7F00] to-[#FFBB00]">
             <div>
-                <h1 className="font-bold text-white text-4xl p-4">
-                    Previsão do Tempo
-                </h1>
+                <div className="min-h-64 border-b-2 flex flex-col gap-4 justify-evenly items-center px-2 py-4">
+                    <h1 className="font-bold text-white text-4xl pl-2">
+                        Previsão do Tempo
+                    </h1>
 
-                {displayPanel && weatherPanelProps ? (
-                    <WeatherPanel
-                        location={weatherPanelProps.location}
-                        weather={weatherPanelProps.weather}
-                        onClose={weatherPanelProps.onClose}
-                    />
-                ) : null}
+                    {displayPanel && weatherPanelProps ? (
+                        <WeatherPanel
+                            location={weatherPanelProps.location}
+                            weather={weatherPanelProps.weather}
+                            onClose={weatherPanelProps.onClose}
+                        />
+                    ) : null}
 
-                <SearchBar onSearch={handleOnSearch} />
+                    <SearchBar onSearch={handleOnSearch} />
+                </div>
 
                 <CapitalsList
                     handleClickOnCapital={handleClickCapitalListItem}
