@@ -2,6 +2,7 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { MdArrowDownward, MdArrowUpward } from 'react-icons/md'
 
 export type WeatherPanelProps = {
+    onClose: () => void
     location: {
         city: string
         state: string
@@ -29,6 +30,7 @@ export const WeatherPanel = ({
         humidity,
         windSpeed,
     },
+    onClose,
 }: WeatherPanelProps) => {
     return (
         <div className="bg-white">
@@ -37,7 +39,9 @@ export const WeatherPanel = ({
                     <span>
                         {city}, {state} - {country}
                     </span>
-                    <AiOutlineClose />
+                    <button onClick={onClose}>
+                        <AiOutlineClose />
+                    </button>
                 </div>
                 <div>
                     {temperature}°C {condition}
