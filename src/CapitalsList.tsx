@@ -1,20 +1,30 @@
 import React, { FC } from 'react'
-import { Capital, capitals } from './utils'
+import { WeatherCurrentApiResponse } from './types'
 
 type CapitalSelectionsProps = {
-    handleClickOnCapital: (captial: Capital) => () => void
+    handleClickOnCapital: (capital: string) => () => void
+    list: {
+        name: string
+        temperature: number
+    }[]
 }
 
 export const CapitalsList: FC<CapitalSelectionsProps> = ({
     handleClickOnCapital,
+    list,
 }) => {
     return (
-        <div className="p-2">
-            <h2 className="font-bold text-2xl text-white">Capitais</h2>
-            <ul className="grid grid-cols-2">
-                {capitals.slice(0, 10).map((cpt) => (
-                    <li key={cpt} onClick={handleClickOnCapital(cpt)}>
-                        {cpt}
+        <div className="self-start pl-8">
+            <h2 className="font-bold text-xl text-white pb-4">Capitais</h2>
+            <ul className="space-y-2 md:grid md:grid-cols-3 md:gap-x-8 pb-4">
+                {list.map((cpt) => (
+                    <li
+                        className="font-bold flex justify-start gap-4"
+                        key={cpt.name}
+                        onClick={handleClickOnCapital(cpt.name)}
+                    >
+                        <span className="min-w-10">{cpt.temperature}°</span>
+                        <span>{cpt.name} </span>
                     </li>
                 ))}
             </ul>

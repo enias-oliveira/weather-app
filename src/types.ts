@@ -1,8 +1,13 @@
-export interface WeatherAPIResponse {
+export interface WeatherForecastAPIResponse {
     location: Location
     current: Current
     forecast: Forecast
     alerts: Alerts
+}
+
+export interface WeatherCurrentApiResponse {
+    location: Location
+    current: Current
 }
 
 export interface Location {

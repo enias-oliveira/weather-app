@@ -2,21 +2,20 @@ import { useApp } from './use-app'
 import { CapitalsList } from './CapitalsList'
 import { SearchBar } from './SearchBar'
 import { WeatherPanel } from './WeahterPanel'
-import { useState } from 'react'
 
 function App() {
     const {
         displayPanel,
         weatherPanelProps,
-        handleClickCapitalListItem,
+        capitalListProps,
         handleOnSearch,
     } = useApp()
 
     return (
-        <div className="h-dvh  bg-gradient-to-b from-[#FF7F00] to-[#FFBB00]">
+        <div className="h-[100%]  bg-gradient-to-b from-[#FF7F00] to-[#FFBB00]">
             <div className="flex flex-col items-center">
                 <div className="min-h-64 flex flex-col gap-4 justify-evenly items-center">
-                    <h1 className="font-bold text-white text-4xl pl-2">
+                    <h1 className="font-bold text-white text-xl pt-4 pl-4 self-start">
                         Previsão do Tempo
                     </h1>
 
@@ -34,9 +33,14 @@ function App() {
                 </div>
                 <div className="h-0.5 w-full max-w-sm bg-white my-4"></div>
 
-                <CapitalsList
-                    handleClickOnCapital={handleClickCapitalListItem}
-                />
+                {capitalListProps ? (
+                    <CapitalsList
+                        handleClickOnCapital={
+                            capitalListProps.handleClickCapitalListItem
+                        }
+                        list={capitalListProps.capitalsWeather}
+                    />
+                ) : null}
             </div>
         </div>
     )

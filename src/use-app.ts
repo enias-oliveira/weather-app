@@ -1,25 +1,26 @@
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import { WeatherAPIResponse } from './types'
+import { WeatherForecastAPIResponse } from './types'
 import { Capital, WEATHER_API_BASE_URL, WEATHER_API_KEY } from './utils'
 import { WeatherPanelProps } from './WeahterPanel'
+import { getCapitalsWeather, getWeatherForecast } from './api'
 
 export const useApp = () => {
     const [locationQuery, setLocationQuery] = useState('')
     const [displayPanel, setDisplayPanel] = useState(false)
 
-    const { data: capitalWeather } = useQuery({
-        queryKey: ['capitalWeather', locationQuery],
-        queryFn: async () => {
-            const response = await fetch(
-                `${WEATHER_API_BASE_URL}/forecast.json?q=${locationQuery}&days=5&key=${WEATHER_API_KEY}&lang=PT`
-            )
-            return (await response.json()) as WeatherAPIResponse
-        },
+    const { data: selectedWeatherForecast } = useQuery({
+        queryKey: ['weatherForecast', locationQuery],
+        queryFn: async () => getWeatherForecast(locationQuery),
         enabled: !!locationQuery,
     })
 
-    const handleClickCapitalListItem = (capital: Capital) => () => {
+    const { data: capitalsCurrentWeathers } = useQuery({
+        queryKey: ['capitalsCurrentWeather'],
+        queryFn: async () => getCapitalsWeather(),
+    })
+
+    const handleClickCapitalListItem = (capital: string) => () => {
         setLocationQuery(capital)
         setDisplayPanel(true)
     }
@@ -33,32 +34,45 @@ export const useApp = () => {
         setDisplayPanel(false)
     }
 
-    const weatherPanelProps: WeatherPanelProps | undefined = capitalWeather
+    const weatherPanelProps: WeatherPanelProps | undefined =
+        selectedWeatherForecast
+            ? {
+                  onClose: handleOnClose,
+                  location: {
+                      city: selectedWeatherForecast.location.name,
+                      country: selectedWeatherForecast.location.country,
+                      state: selectedWeatherForecast.location.region,
+                  },
+                  weather: {
+                      temperature: selectedWeatherForecast.current.temp_c,
+                      condition: selectedWeatherForecast.current.condition.text,
+                      minTemperature:
+                          selectedWeatherForecast.forecast.forecastday[0].day
+                              .mintemp_c,
+                      maxTemperature:
+                          selectedWeatherForecast.forecast.forecastday[0].day
+                              .maxtemp_c,
+                      feelsLike: selectedWeatherForecast.current.feelslike_c,
+                      humidity: selectedWeatherForecast.current.humidity,
+                      windSpeed: selectedWeatherForecast.current.wind_kph,
+                  },
+              }
+            : undefined
+
+    const capitalListProps = capitalsCurrentWeathers
         ? {
-              onClose: handleOnClose,
-              location: {
-                  city: capitalWeather.location.name,
-                  country: capitalWeather.location.country,
-                  state: capitalWeather.location.region,
-              },
-              weather: {
-                  temperature: capitalWeather.current.temp_c,
-                  condition: capitalWeather.current.condition.text,
-                  minTemperature:
-                      capitalWeather.forecast.forecastday[0].day.mintemp_c,
-                  maxTemperature:
-                      capitalWeather.forecast.forecastday[0].day.maxtemp_c,
-                  feelsLike: capitalWeather.current.feelslike_c,
-                  humidity: capitalWeather.current.humidity,
-                  windSpeed: capitalWeather.current.wind_kph,
-              },
+              handleClickCapitalListItem,
+              capitalsWeather: capitalsCurrentWeathers.map((ccw) => ({
+                  name: ccw.location.name,
+                  temperature: ccw.current.temp_c,
+              })),
           }
         : undefined
 
     return {
-        weatherPanelProps,
-        handleClickCapitalListItem,
-        handleOnSearch,
         displayPanel,
+        handleOnSearch,
+        weatherPanelProps,
+        capitalListProps,
     }
 }
