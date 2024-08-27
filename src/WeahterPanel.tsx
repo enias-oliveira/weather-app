@@ -33,40 +33,45 @@ export const WeatherPanel = ({
     onClose,
 }: WeatherPanelProps) => {
     return (
-        <div className="bg-white">
-            <div className="pl-4">
+        <div className="bg-[#FFF2E4] text-slate-700 w-full">
+            <div className="flex flex-col gap-1 pl-6 pr-2">
                 <div className="flex items-center justify-between">
-                    <span>
+                    <span className="font-bold text-sm py-3">
                         {city}, {state} - {country}
                     </span>
                     <button onClick={onClose}>
-                        <AiOutlineClose />
+                        <AiOutlineClose className="text-orange-500" />
                     </button>
                 </div>
-                <div>
-                    {temperature}°C {condition}
+                <div className="flex justify-around gap-2">
+                    <div className="font-bold text-3xl">{temperature}°C</div>
+                    <div className="font-bold text-3xl">{condition}</div>
                 </div>
-                <div className="grid grid-cols-2 place-items-center">
+
+                <div className="h-20 grid grid-cols-2 place-items-start pt-2">
                     <div className="flex items-center gap-2">
                         <div className="flex items-center">
-                            <MdArrowDownward />
-                            <span>{minTemperature}</span>
+                            <MdArrowDownward className="text-orange-500" />
+                            <span className="font-bold">{minTemperature}°</span>
                         </div>
                         <div className="flex items-center">
-                            <MdArrowUpward />
-                            <span>{maxTemperature}</span>
+                            <MdArrowUpward className="text-orange-500" />
+                            <span className="font-bold">{maxTemperature}°</span>
                         </div>
                     </div>
 
                     <div>
-                        Sensaçâo <span>{feelsLike}°</span>
+                        <span className="font-light"> Sensaçâo </span>
+                        <span className="font-bold">{feelsLike}°</span>
                     </div>
 
                     <div>
-                        Vento <span>{windSpeed}km/h</span>
+                        <span className="font-light">Vento</span>
+                        <span className="font-bold">{windSpeed}km/h</span>
                     </div>
                     <div>
-                        Humidade <span>{humidity}%</span>
+                        <span className="font-light">Humidade</span>
+                        <span className="font-bold">{humidity}%</span>
                     </div>
                 </div>
             </div>

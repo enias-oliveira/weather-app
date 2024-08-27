@@ -13,7 +13,7 @@ export const SearchBar: FC<{
     }
 
     return (
-        <div className="bg-white flex items-center justify-between px-2 py-1 w-full">
+        <div className="bg-white flex items-center justify-between px-3 py-2 w-full">
             <input
                 className="w-full focus:outline-none"
                 type="text"
