@@ -66,11 +66,11 @@ export const WeatherPanel = ({
                     </div>
 
                     <div>
-                        <span className="font-light">Vento</span>
+                        <span className="font-light">Vento </span>
                         <span className="font-bold">{windSpeed}km/h</span>
                     </div>
                     <div>
-                        <span className="font-light">Humidade</span>
+                        <span className="font-light">Humidade </span>
                         <span className="font-bold">{humidity}%</span>
                     </div>
                 </div>
